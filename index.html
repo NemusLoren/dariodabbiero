@@ -3,339 +3,147 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DarioDAbbiero.it - Progetto ad Alto Budget</title>
-  <meta name="description" content="Il Club del Risparmio Estremo di Dario. Progetto ad alto budget: meno di 5 euro.">
+  <title>DarioDAbbiero.it</title>
+  <meta name="description" content="Il dominio di Dario, pagato da qualcun altro.">
   <style>
     :root {
-      --bg: #f6f7fb;
-      --bg-glow: rgba(124, 92, 255, .18);
+      --bg: #f4f5f9;
       --card: #ffffff;
       --text: #1d2033;
       --muted: #6b7089;
       --accent: #7c5cff;
-      --accent-2: #ff6b8b;
       --border: #e4e6f0;
-      --shadow: 0 12px 32px rgba(20, 20, 60, .08);
-      --danger: #e11d48;
-      --ok: #16a34a;
-    }
-
-    :root[data-theme="dark"] {
-      --bg: #0b0d18;
-      --bg-glow: rgba(124, 92, 255, .22);
-      --card: #161a2e;
-      --text: #eef0ff;
-      --muted: #9aa0c3;
-      --accent: #a58cff;
-      --accent-2: #ff8fa8;
-      --border: #262b47;
-      --shadow: 0 12px 40px rgba(0, 0, 0, .45);
-      --danger: #fb7185;
-      --ok: #4ade80;
+      --shadow: 0 14px 40px rgba(20, 20, 60, .10);
     }
 
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
+      :root {
         --bg: #0b0d18;
-        --bg-glow: rgba(124, 92, 255, .22);
         --card: #161a2e;
         --text: #eef0ff;
         --muted: #9aa0c3;
         --accent: #a58cff;
-        --accent-2: #ff8fa8;
         --border: #262b47;
-        --shadow: 0 12px 40px rgba(0, 0, 0, .45);
-        --danger: #fb7185;
-        --ok: #4ade80;
+        --shadow: 0 14px 40px rgba(0, 0, 0, .5);
       }
     }
 
     * { box-sizing: border-box; }
 
-    html, body { margin: 0; }
-
     body {
+      margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(900px 500px at 10% -10%, var(--bg-glow), transparent 60%),
-        radial-gradient(700px 500px at 110% 10%, rgba(255, 107, 139, .14), transparent 60%),
-        var(--bg);
-      background-color: var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+      background: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.5;
       overflow-x: hidden;
     }
 
-    .wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 56px 16px 40px;
+    .box {
+      width: min(100%, 420px);
+      text-align: center;
+      animation: up .6s ease both;
     }
 
-    .theme-toggle {
-      position: fixed;
-      top: 14px;
-      right: 14px;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      font-size: 20px;
-      cursor: pointer;
+    .face {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
       box-shadow: var(--shadow);
-      transition: transform .2s ease;
-      z-index: 10;
-    }
-    .theme-toggle:hover { transform: rotate(18deg) scale(1.06); }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--muted);
-      animation: fadeUp .6s ease both;
+      border: 4px solid var(--card);
     }
 
     h1 {
-      margin: 16px 0 8px;
-      font-size: clamp(30px, 6vw, 46px);
-      line-height: 1.12;
+      margin: 18px 0 4px;
+      font-size: 30px;
       letter-spacing: -.02em;
-      animation: fadeUp .6s .1s ease both;
     }
 
-    .gradient {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .lead {
+    .sub {
       margin: 0 0 28px;
       color: var(--muted);
-      font-size: 17px;
-      animation: fadeUp .6s .2s ease both;
     }
 
-    .avatar {
-      display: block;
-      width: 120px;
-      height: 120px;
-      margin: 18px 0 0;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--card);
-      box-shadow: var(--shadow);
-      animation: fadeUp .6s ease both;
-    }
-
-    .avatar.small {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 12px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-      animation: fadeUp .6s ease both;
-    }
-    .card:nth-of-type(2) { animation-delay: .15s; }
-    .card:nth-of-type(3) { animation-delay: .3s; }
-
-    .card h2 {
-      margin: 0 0 6px;
-      font-size: 20px;
-    }
-
-    .muted { color: var(--muted); font-size: 15px; margin: 0 0 16px; }
-
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 18px;
-    }
-    .stat {
-      border: 1px dashed var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      text-align: center;
-    }
-    .stat strong {
-      display: block;
-      font-size: 26px;
-      color: var(--accent);
-    }
-    .stat span { font-size: 13px; color: var(--muted); }
-
-    /* Bottone che scappa */
     .stage {
       position: relative;
-      height: 190px;
-      border-radius: 16px;
-      border: 2px dashed var(--border);
-      overflow: hidden;
-      background: repeating-linear-gradient(45deg, transparent 0 12px, rgba(124,92,255,.04) 12px 24px);
-      touch-action: manipulation;
-    }
-
-    .stage-hint {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 10px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
-      pointer-events: none;
-    }
-
-    .btn {
-      position: absolute;
-      left: 0;
-      top: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 20px;
-      border: 0;
-      border-radius: 14px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: #fff;
-      font: inherit;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 10px 24px rgba(124, 92, 255, .35);
-      transition: left .28s cubic-bezier(.2,.8,.2,1), top .28s cubic-bezier(.2,.8,.2,1), transform .15s ease;
-      user-select: none;
-    }
-    .btn:hover { transform: scale(1.03); }
-    .btn:active { transform: scale(.97); }
-    .btn:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 3px; }
-
-    .btn .wiggle { display: inline-block; animation: wiggle 1.6s ease-in-out infinite; }
-
-    /* Finta raccolta fondi */
-    .progress-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 15px;
+      height: 120px;
       margin-bottom: 8px;
     }
 
-    .progress {
-      height: 22px;
+    .run {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      padding: 14px 22px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(124, 92, 255, .35);
+      transition: left .25s ease, top .25s ease;
+    }
+    .run:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    .fund {
+      margin-top: 28px;
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .fund-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 12px;
       border-radius: 999px;
       background: var(--border);
       overflow: hidden;
-      position: relative;
     }
 
-    .progress .fill {
+    .bar span {
+      display: block;
       height: 100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: width 1.2s ease;
+      width: 0;
+      background: var(--accent);
     }
 
-    .progress::after {
-      content: "⏸️ in pausa";
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-    }
-
-    .pause-note {
+    .fund p {
       margin: 10px 0 0;
       font-size: 13px;
       color: var(--muted);
     }
 
-    .ideas {
-      display: grid;
-      gap: 10px;
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-    .ideas li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      transition: transform .2s ease, border-color .2s ease;
-    }
-    .ideas li:hover { transform: translateX(6px); border-color: var(--accent); }
-    .ideas .ico { font-size: 26px; }
-    .ideas small { display: block; color: var(--muted); }
-
-    .donate {
-      margin-top: 18px;
-      width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      border: 1px solid var(--accent);
-      background: transparent;
-      color: var(--accent);
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .2s ease, color .2s ease;
-    }
-    .donate:hover { background: var(--accent); color: #fff; }
-    .donate.shake { animation: shake .4s ease; }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 28px;
-      animation: fadeUp .6s .4s ease both;
-    }
-    footer .heart { display: inline-block; animation: beat 1.4s ease-in-out infinite; }
-
-    /* Popup "braccino corto" */
     dialog {
       border: 0;
-      border-radius: 22px;
-      padding: 28px 24px 22px;
-      max-width: min(92vw, 400px);
+      border-radius: 20px;
+      padding: 26px 22px;
+      max-width: min(90vw, 360px);
       background: var(--card);
       color: var(--text);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
       text-align: center;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .4);
     }
-    dialog[open] { animation: pop .35s cubic-bezier(.2,.9,.3,1.3) both; }
-    dialog::backdrop { background: rgba(5, 6, 15, .6); backdrop-filter: blur(3px); }
-    dialog .big { font-size: 52px; line-height: 1; }
-    dialog h3 { margin: 12px 0 6px; font-size: 22px; color: var(--danger); }
-    dialog p { margin: 0 0 18px; color: var(--muted); }
+    dialog::backdrop { background: rgba(5, 6, 15, .55); }
+    dialog .big { font-size: 46px; line-height: 1; }
+    dialog p { margin: 10px 0 18px; color: var(--muted); }
     dialog button {
-      padding: 12px 20px;
+      padding: 11px 18px;
       border: 0;
       border-radius: 12px;
       background: var(--accent);
@@ -345,197 +153,83 @@
       cursor: pointer;
     }
 
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 22px;
-      transform: translate(-50%, 140%);
-      max-width: calc(100vw - 32px);
-      padding: 12px 18px;
-      border-radius: 14px;
-      background: var(--text);
-      color: var(--bg);
-      font-size: 14px;
-      box-shadow: var(--shadow);
-      transition: transform .35s cubic-bezier(.2,.9,.3,1.2);
-      z-index: 20;
-    }
-    .toast.show { transform: translate(-50%, 0); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
+    @keyframes up {
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: none; }
-    }
-    @keyframes pop {
-      from { opacity: 0; transform: scale(.85); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
-    }
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0); }
-      25% { transform: rotate(-8deg); }
-      75% { transform: rotate(8deg); }
-    }
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.25); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .stats { grid-template-columns: 1fr; }
-      .wrap { padding-top: 64px; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" id="theme" type="button" aria-label="Cambia tema chiaro/scuro">🌙</button>
+  <main class="box">
+    <img class="face" src="dario.png" alt="Dario">
+    <h1>DarioDAbbiero.it</h1>
+    <p class="sub">Dominio: 5 €. Dario: 0 €.</p>
 
-  <main class="wrap">
-    <span class="badge">🏷️ Progetto a budget zero · edizione limitata</span>
+    <div class="stage" id="stage">
+      <button class="run" id="run" type="button">Riscatta il dominio · 5 €</button>
+    </div>
 
-    <img class="avatar" src="dario.png" alt="Dario, il socio più tirchio del club">
-
-    <h1>Il Club del <span class="gradient">Risparmio Estremo</span> di Dario</h1>
-    <p class="lead">DarioDAbbiero.it: un progetto ad alto budget. Il budget, per l'esattezza, è inferiore a 5 €.</p>
-
-    <section class="card" aria-labelledby="status-title">
-      <h2 id="status-title">📊 Stato del progetto</h2>
-      <p class="muted">Un sito personale a costo zero, come da tradizione del club.</p>
-      <div class="stats">
-        <div class="stat">
-          <strong>5,00 €</strong>
-          <span>Costo del dominio</span>
-        </div>
-        <div class="stat">
-          <strong>0,00 €</strong>
-          <span>Spesi da Dario (ha partecipato con il pensiero 🧠)</span>
-        </div>
+    <section class="fund" aria-label="Raccolta fondi">
+      <div class="fund-row">
+        <strong>0,00 € raccolti</strong>
+        <span>su 5,00 €</span>
       </div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span></span></div>
+      <p>In attesa di Dario.</p>
     </section>
-
-    <section class="card" aria-labelledby="escape-title">
-      <h2 id="escape-title">🏃 Riscatta il sito</h2>
-      <p class="muted">Un solo clic e il dominio è tuo. Il pulsante, però, ha altri piani.</p>
-
-      <div class="stage" id="stage">
-        <button class="btn" id="escape" type="button">
-          <span class="wiggle">💸</span> Clicca qui per spendere 5€ e riscattare il sito
-        </button>
-        <span class="stage-hint">(su mobile il pulsante non scappa: ha solo paura del portafoglio 😅)</span>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="fund-title">
-      <h2 id="fund-title">🤝 Raccolta Fondi per il Dominio di Dario</h2>
-      <p class="muted">Obiettivo: 5,00 €. Il progetto è in corso dal momento in cui qualcuno ha detto "ci penso".</p>
-
-      <div class="progress-head">
-        <strong id="raised">0,00 € raccolti</strong>
-        <span class="muted" style="margin:0">su 5,00 € · 0%</span>
-      </div>
-      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-label="Fondi raccolti per il dominio">
-        <div class="fill" id="fill"></div>
-      </div>
-      <p class="pause-note">Il contatore è fermo da quando si è parlato di spese. Nessun contributo registrato, nemmeno quello di Dario.</p>
-
-      <p class="muted" style="margin:18px 0 0">Con questi 5 euro, nel frattempo, avresti potuto comprare:</p>
-      <ul class="ideas">
-        <li><span class="ico">🍕</span><div>Mezza pizza<small>Quella con il bordo, se proprio.</small></div></li>
-        <li><span class="ico">☕</span><div>Un caffè e mezzo a Venezia<small>Il mezzo lo offre il barista, di solito.</small></div></li>
-        <li><span class="ico">⚽</span><div>Tre goleador<small>Al calcetto, con i compagni che non passano mai la palla.</small></div></li>
-      </ul>
-
-      <button class="donate" id="donate" type="button">💛 Dona 1 € (se ti senti generoso)</button>
-    </section>
-
-    <footer>
-      <img class="avatar small" src="dario.png" alt="Dario, di nuovo">
-      Fatto con affetto e un pizzico di ironia da chi il dominio l'ha pagato davvero.
-      <br>Dario, ti vogliamo bene. Ora il sito è tuo, anche se non l'hai pagato tu. <span class="heart">💛</span>
-    </footer>
   </main>
 
-  <dialog id="alert" aria-labelledby="alert-title">
+  <dialog id="alert">
     <div class="big" aria-hidden="true">🚨</div>
-    <h3 id="alert-title">Errore: Rilevato braccino corto</h3>
-    <p>Transazione annullata per salvaguardare il tuo portafoglio.</p>
-    <button type="button" id="alert-close">Ho capito, grazie 😅</button>
+    <p><strong>Errore: Rilevato braccino corto.</strong><br>Transazione annullata per salvaguardare il tuo portafoglio.</p>
+    <button type="button" id="close">Ho capito</button>
   </dialog>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     (function () {
       var stage = document.getElementById('stage');
-      var btn = document.getElementById('escape');
+      var run = document.getElementById('run');
       var dialog = document.getElementById('alert');
-      var toast = document.getElementById('toast');
-      var themeBtn = document.getElementById('theme');
-      var donateBtn = document.getElementById('donate');
-      var fill = document.getElementById('fill');
-      var raised = document.getElementById('raised');
-
-      // Il pulsante scappa solo con un mouse vero: su touch niente fuga, solo popup
       var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       function place(x, y) {
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
+        run.style.left = x + 'px';
+        run.style.top = y + 'px';
       }
 
-      function randomSpot() {
-        var maxX = Math.max(0, stage.clientWidth - btn.offsetWidth - 8);
-        var maxY = Math.max(0, stage.clientHeight - btn.offsetHeight - 36);
-        return { x: 8 + Math.random() * (maxX - 8), y: 8 + Math.random() * (maxY - 8) };
-      }
-
-      function centerButton() {
-        place(
-          Math.max(0, (stage.clientWidth - btn.offsetWidth) / 2),
-          Math.max(0, (stage.clientHeight - btn.offsetHeight - 36) / 2)
-        );
-      }
-
-      function flee(pointerX, pointerY) {
-        var stageRect = stage.getBoundingClientRect();
-        var spot = null;
-        for (var i = 0; i < 25; i++) {
-          var candidate = randomSpot();
-          var cx = stageRect.left + candidate.x + btn.offsetWidth / 2;
-          var cy = stageRect.top + candidate.y + btn.offsetHeight / 2;
-          var far = Math.hypot(cx - pointerX, cy - pointerY) > Math.max(btn.offsetWidth, 180) / 2 + 60;
-          spot = candidate;
-          if (far) break;
-        }
-        place(spot.x, spot.y);
+      function center() {
+        place((stage.clientWidth - run.offsetWidth) / 2, (stage.clientHeight - run.offsetHeight) / 2);
+        run.style.transform = 'none';
       }
 
       if (canHover) {
         stage.addEventListener('pointermove', function (e) {
-          var r = btn.getBoundingClientRect();
+          var r = run.getBoundingClientRect();
           var near = e.clientX > r.left - 50 && e.clientX < r.right + 50 &&
                      e.clientY > r.top - 50 && e.clientY < r.bottom + 50;
-          if (near) flee(e.clientX, e.clientY);
+          if (!near) return;
+
+          var sr = stage.getBoundingClientRect();
+          var maxX = stage.clientWidth - run.offsetWidth;
+          var maxY = stage.clientHeight - run.offsetHeight;
+          for (var i = 0; i < 25; i++) {
+            var x = Math.random() * maxX;
+            var y = Math.random() * maxY;
+            var cx = sr.left + x + run.offsetWidth / 2;
+            var cy = sr.top + y + run.offsetHeight / 2;
+            if (Math.hypot(cx - e.clientX, cy - e.clientY) > 150) {
+              place(x, y);
+              return;
+            }
+          }
         });
       }
 
-      // Se il pulsante viene comunque cliccato (tastiera, tocco, pura fortuna), scatta il popup
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
+      run.addEventListener('click', function () {
         if (typeof dialog.showModal === 'function') {
           dialog.showModal();
         } else {
@@ -543,65 +237,12 @@
         }
       });
 
-      document.getElementById('alert-close').addEventListener('click', function () {
-        dialog.close();
-      });
+      document.getElementById('close').addEventListener('click', function () { dialog.close(); });
+      dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
 
-      dialog.addEventListener('click', function (e) {
-        if (e.target === dialog) dialog.close();
-      });
-
-      var toastTimer;
-      function showToast(msg) {
-        toast.textContent = msg;
-        toast.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 3200);
-      }
-
-      donateBtn.addEventListener('click', function () {
-        donateBtn.classList.remove('shake');
-        void donateBtn.offsetWidth; // riavvia l'animazione
-        donateBtn.classList.add('shake');
-        showToast('Bonifico non partito: Dario sta ancora confrontando le commissioni. 🧐');
-      });
-
-      // Barra ferma a 0 €: al caricamento la mostriamo vuota e con l'animazione di "attesa"
-      setTimeout(function () {
-        fill.style.width = '0%';
-        raised.textContent = '0,00 € raccolti';
-      }, 300);
-
-      window.addEventListener('resize', function () {
-        if (btn.offsetLeft + btn.offsetWidth > stage.clientWidth || btn.offsetTop + btn.offsetHeight > stage.clientHeight) {
-          centerButton();
-        }
-      });
-
-      // Tema chiaro/scuro (la preferenza di sistema è il default)
-      function currentTheme() {
-        var stored = null;
-        try { stored = localStorage.getItem('dario-theme'); } catch (err) { /* storage bloccato: ok */ }
-        if (stored === 'light' || stored === 'dark') return stored;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-
-      function applyTheme(t) {
-        document.documentElement.setAttribute('data-theme', t);
-        themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
-      }
-
-      applyTheme(currentTheme());
-
-      themeBtn.addEventListener('click', function () {
-        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-        try { localStorage.setItem('dario-theme', next); } catch (err) { /* ignora */ }
-      });
-
-      // Posizione iniziale del pulsante, dopo che il layout è pronto
-      window.addEventListener('load', centerButton);
-      centerButton();
+      window.addEventListener('load', center);
+      window.addEventListener('resize', center);
+      center();
     })();
   </script>
 </body>
