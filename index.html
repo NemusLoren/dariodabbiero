@@ -153,6 +153,25 @@
       cursor: pointer;
     }
 
+    .old {
+      margin: 32px 0 0;
+    }
+
+    .old img {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .old figcaption {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
     @keyframes up {
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: none; }
@@ -181,6 +200,11 @@
       <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span></span></div>
       <p>In attesa di Dario.</p>
     </section>
+
+    <figure class="old">
+      <img src="dario-github.jpg" alt="Il vecchio profilo GitHub di Dario">
+      <figcaption>Il suo profilo GitHub di qualche anno fa.</figcaption>
+    </figure>
   </main>
 
   <dialog id="alert">
